@@ -1,0 +1,65 @@
+<h2 class="titulos">ABM Alumnos</h2>
+
+
+<!-- formulario -->
+<form [formGroup]="formulario" (ngSubmit)="submitForm()">
+
+  <div class="row col-md-4">
+
+    <!-- nombre -->
+    <div class="input-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="nombre">
+        <mat-error *ngIf="formulario.get('nombre')?.errors?.['required']">El campo nombre es requerido</mat-error>
+        <mat-error *ngIf="formulario.get('nombre')?.errors?.['pattern']">El formato de nombre no es correcto</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- apellido -->
+    <div class="input-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="apellido">
+        <mat-error *ngIf="formulario.get('apellido')?.errors?.['required']">El campo apellido es requerido</mat-error>
+        <mat-error *ngIf="formulario.get('apellido')?.errors?.['pattern']">El formato de apellido no es correcto</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- email -->
+    <div class="input-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput autocomplete="off" formControlName="email">
+        <mat-error *ngIf="formulario.get('email')?.errors?.['required']">El campo email es requerido</mat-error>
+        <mat-error *ngIf="formulario.get('email')?.errors?.['pattern']">El formato email no es correcto</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- usuario -->
+    <div class="input-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Usuario</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="usuario">
+        <mat-error *ngIf="formulario.get('usuario')?.errors?.['required']">El campo usuario es requerido</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- contraseña -->
+    <div class="input-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Contraseña</mat-label>
+        <input type="password" matInput autocomplete="off" formControlName="password">
+        <mat-error *ngIf="formulario.get('password')?.errors?.['required']">El campo contraseña es requerido</mat-error>
+        <mat-error *ngIf="formulario.get('password')?.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</mat-error>
+        <mat-error *ngIf="!formulario.get('password')?.errors?.['minlength'] && formulario.get('password')?.errors?.['pattern']">La contraseña debe tener al menos una letra mayuscula</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Boton submit -->
+    <div class="input-form">
+      <button mat-raised-button color="primary" type="submit" [disabled]="formulario.invalid">Alta Alumno</button>
+    </div>
+
+  </div>
+

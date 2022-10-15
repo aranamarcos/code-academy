@@ -1,0 +1,40 @@
+.navbar {
+  height: 90%;
+}
+
+.contenido-navbar {
+  padding: 10px 20px;
+}
+
+.contenedor-opcion {
+  margin: 10px 0px;
+}
+
+button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.boton-azul {
+  background-color: #3F51B5;
+  border: #3F51B5;
+}
+
+.texto-azul {
+  color: #3F51B5;
+  text-decoration: underline wavy;
+}
+
+h3 {
+  margin: 0px;
+  margin-left: 10px;
+}
+
+.contenedor-principal {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
