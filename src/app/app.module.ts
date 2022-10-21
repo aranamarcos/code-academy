@@ -12,6 +12,7 @@ import { AbmAlumnosComponent } from './components/abm-alumnos/abm-alumnos.compon
 import { BaseAlumnosComponent } from './components/base-alumnos/base-alumnos.component';
 import { NombreApellidoPipe } from './pipes/nombre-apellido.pipe';
 import { Letra20Directive } from './directives/letra20.directive';
+import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { Letra20Directive } from './directives/letra20.directive';
     AbmAlumnosComponent,
     BaseAlumnosComponent,
     NombreApellidoPipe,
-    Letra20Directive
+    Letra20Directive,
+    ListaCursosComponent
   ],
   imports: [
     BrowserModule,

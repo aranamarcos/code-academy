@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { AlumnosService } from '../../services/alumnos.service';
 
 @Component({
   selector: 'app-abm-alumnos',
@@ -9,9 +10,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 
 export class AbmAlumnosComponent implements OnInit {
-
-
-  @Output() comunicaAlumno: EventEmitter<any> = new EventEmitter<any>();
 
   hide = true;
 
@@ -25,14 +23,15 @@ export class AbmAlumnosComponent implements OnInit {
 
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private alumnosService: AlumnosService,
   ) { }
 
   ngOnInit(): void {
   }
 
   submitForm(): void {
-    this.comunicaAlumno.emit(this.formulario.value);
+    this.alumnosService.agregarAlumno(this.formulario.value);
     this.formulario.reset();
   }
 }
