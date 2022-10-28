@@ -41,21 +41,27 @@ export class AlumnosService {
   agregarAlumno(alumno: Alumno) {
     this.alumnos.push(alumno);
     this.alumnosSubject.next(this.alumnos);
+    this.alumnosLengthSubject.next(this.alumnos.length);
   }
 
   editarAlumno(alumno: Alumno){
-    let indice = this.alumnos.findIndex((a: Alumno) => a.id === alumno.id);
 
+    console.table(alumno);
+
+    let indice = this.alumnos.findIndex((a: Alumno) => a.id === alumno.id);
+    console.log(indice);
     if(indice > -1){
       this.alumnos[indice] = alumno;
     }
 
     this.alumnosSubject.next(this.alumnos);
+    this.alumnosLengthSubject.next(this.alumnos.length);
   }
 
   eliminarAlumno(i: number){
     this.alumnos.splice(i, 1);
     this.alumnosSubject.next(this.alumnos);
+    this.alumnosLengthSubject.next(this.alumnos.length);
   }
 
 }

@@ -42,7 +42,7 @@ export class AlumnosEditarComponent implements OnInit {
 
   editarAlumno(){
     let a: Alumno = {
-      id: this.formulario.value.id,
+      id: this.id,
       nombre: this.formulario.value.nombre,
       apellido: this.formulario.value.apellido,
       email: this.formulario.value.email,
@@ -50,7 +50,7 @@ export class AlumnosEditarComponent implements OnInit {
       password: this.formulario.value.password,
     }
 
-    this.alumnosService.agregarAlumno(a);
+    this.alumnosService.editarAlumno(a);
   }
 }
 
