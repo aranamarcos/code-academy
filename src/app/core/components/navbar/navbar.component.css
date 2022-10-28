@@ -1,0 +1,59 @@
+.navbar {
+  height: 90%;
+}
+
+.contenido-navbar {
+  padding: 10px 20px;
+}
+
+.contenedor-opcion {
+  margin: 10px 0px;
+}
+
+button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-light {
+  color: white !important;
+}
+
+.boton-azul {
+  border: 1px solid rgb(240,240,240);
+  color: white;
+  color: #3F51B5 !important;
+}
+
+.boton-rosa {
+  border: 1px solid rgb(240,240,240);
+  color: #FF4081 !important;
+}
+
+.boton-rosaFill {
+    background-color: #FF4081;
+    color: white;
+}
+
+.texto-menuRosa {
+  color: #FF4081;
+  text-decoration: underline wavy;
+}
+
+.texto-menuAzul {
+  color: #3F51B5;
+}
+
+h3 {
+  margin: 0px;
+  margin-left: 10px;
+}
+
+.contenedor-principal {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}

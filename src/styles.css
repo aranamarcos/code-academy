@@ -8,3 +8,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #3F51B5;
   font-weight: bold;
 }
+
+th {
+  background-color: grey;
+  color: white !important;
+}
+
+.colorVerde {
+  color: LightSeaGreen;
+}
+
+.colorRojo {
+  color: LightCoral;
+}
+
+.colorAmarillo {
+  color: gold;
+}

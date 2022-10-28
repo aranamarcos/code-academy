@@ -1,0 +1,47 @@
+<mat-drawer-container class="navbar" autosize>
+  <mat-drawer #drawer class="contenido-navbar" [(opened)]="opened" mode="side">
+    <div class="d-flex flex-column">
+
+      <!-- menu -->
+      <div class="d-flex align-items-center contenedor-opcion">
+        <button (click)="showFiller = !showFiller" [ngClass]="showFiller ? 'btn btn-light boton-rosaFill' : 'btn btn-light boton-rosa'">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <h3 class="texto-menuRosa" *ngIf="showFiller">MENU</h3>
+      </div>
+
+      <!-- lista de alumnos -->
+      <div class="d-flex align-items-center contenedor-opcion">
+        <button class="btn btn-light boton-azul" routerLink="alumnos">
+          <mat-icon>face</mat-icon>
+        </button>
+        <h3 class="texto-menuAzul" *ngIf="showFiller">ALUMNOS</h3>
+      </div>
+
+      <!-- cursos -->
+      <div class="d-flex align-items-center contenedor-opcion">
+        <button class="btn btn-light boton-azul" routerLink="cursos">
+          <mat-icon>menu_book</mat-icon>
+        </button>
+        <h3 class="texto-menuAzul" *ngIf="showFiller">CURSOS</h3>
+      </div>
+
+      <!-- inscripciones -->
+      <div class="d-flex align-items-center contenedor-opcion">
+        <button class="btn btn-light boton-azul">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <h3 class="texto-menuAzul" *ngIf="showFiller">INSCRIPCIONES</h3>
+      </div>
+
+    </div>
+  </mat-drawer>
+
+  <!-- contenido principal -->
+  <mat-drawer-content>
+    <div class="contenedor-principal">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>
