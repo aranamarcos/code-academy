@@ -13,6 +13,9 @@ import { MaterialModule } from './modules/material.module';
     CommonModule,
     ReactiveFormsModule,
     MaterialModule
+  ],
+  exports: [
+    BooleanSiNoPipe
   ]
 })
 export class SharedModule { }

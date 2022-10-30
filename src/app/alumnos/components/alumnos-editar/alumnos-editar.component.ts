@@ -16,9 +16,7 @@ export class AlumnosEditarComponent implements OnInit {
   constructor(
     private alumnosService: AlumnosService,
     private activatedRoute: ActivatedRoute
-    ) {
-
-  }
+    ) { }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((parametros) => {
