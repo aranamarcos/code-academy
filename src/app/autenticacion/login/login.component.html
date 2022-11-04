@@ -1,0 +1,35 @@
+<h2 class="titulos">Iniciar Sesion</h2>
+
+<form [formGroup]="formulario" (ngSubmit)="login()">
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field appearance="fill" class="w100">
+        <mat-label>Usuario</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="usuario">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <mat-form-field appearance="fill" class="w100">
+        <mat-label>Contraseña</mat-label>
+        <input type="text" matInput autocomplete="off" formControlName="contrasena">
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <mat-slide-toggle formControlName="admin">Es Admin</mat-slide-toggle>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="centrar" mat-raised-button color="primary">Entrar</button>
+      </div>
+    </div>
+  </div>
+</form>

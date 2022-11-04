@@ -1,0 +1,11 @@
+<h2 class="titulos">Detalle de Alumnos</h2>
+
+<div *ngIf="(alumno$ | async)">
+  <pre>
+    {{ alumno$ | async | json }}
+  </pre>
+</div>
+
+<div *ngIf="!(alumno$ | async)">
+  <p>No se encontro el curso</p>
+</div>

@@ -4,12 +4,15 @@ import { AlumnosAgregarComponent } from './components/alumnos-agregar/alumnos-ag
 import { AlumnosComponent } from './components/alumnos/alumnos.component';
 import { AlumnosListaComponent } from './components/alumnos-lista/alumnos-lista.component';
 import { AlumnosEditarComponent } from './components/alumnos-editar/alumnos-editar.component';
+import { AlumnosDetalleComponent } from './components/alumnos-detalle/alumnos-detalle.component';
+import { AdminGuard } from '../core/guards/admin.guard';
 
 const routes: Routes = [
-  { path: 'alumnos', component: AlumnosComponent, children: [
-    { path: 'agregar', component: AlumnosAgregarComponent },
-    { path: 'editar', component: AlumnosEditarComponent },
-    { path: 'lista', component: AlumnosListaComponent }
+  { path: '', component: AlumnosComponent, children: [
+    { path: 'agregar', component: AlumnosAgregarComponent, canActivate: [AdminGuard] },
+    { path: 'editar', component: AlumnosEditarComponent, canActivate: [AdminGuard] },
+    { path: 'lista', component: AlumnosListaComponent },
+    { path: ':id', component: AlumnosDetalleComponent }
   ]},
 ];
 

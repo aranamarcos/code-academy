@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 
 import { Letra20Directive } from './shared/directives/letra20.directive';
+import { AutenticacionModule } from './autenticacion/autenticacion.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { Letra20Directive } from './shared/directives/letra20.directive';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AutenticacionModule,
     AppRoutingModule,
     CursosModule,
     AlumnosModule,

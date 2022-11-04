@@ -4,6 +4,8 @@ import { Alumno } from 'src/app/models/alumno';
 import { AlumnosService } from '../../services/alumnos.service';
 import { Subscription, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Sesion } from 'src/app/models/sesion';
+import { SesionService } from '../../../core/services/sesion.service';
 
 
 @Component({
@@ -18,14 +20,17 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
   alumnos$!: Observable<Alumno[]>;
   suscripcion!: Subscription;
   alumnosLength$!: Observable<number>;
+  sesion$!: Observable<Sesion>
 
 
   constructor(
     private alumnosService: AlumnosService,
-    private router: Router
+    private router: Router,
+    private sesionService: SesionService
     ) { }
 
   ngOnInit(): void {
+    this.sesion$ = this.sesionService.obtenerSesion()
 
     this.alumnos$ = this.alumnosService.obtenerAlumnos();
 
@@ -34,16 +39,20 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
         this.dataSource = new MatTableDataSource(refAlumnos)
       },
     })
-
-    this.alumnosLength$ = this.alumnosService.obtenerAlumnosLength();
   }
 
   ngOnDestroy(): void {
     this.suscripcion.unsubscribe();
   }
 
-  eliminarAlumno(i: number){
-    this.alumnosService.eliminarAlumno(i);
+  eliminarAlumno(id: number){
+    this.alumnosService.eliminarAlumno(id);
+    this.alumnos$ = this.alumnosService.obtenerAlumnos();
+    this.alumnos$.subscribe({
+      next: (refAlumnos) => {
+        this.dataSource = new MatTableDataSource(refAlumnos)
+      },
+    })
   }
 
   editarAlumno(alumno: Alumno){
@@ -56,5 +65,4 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
       password: alumno.password,
     }]);
   }
-
 };

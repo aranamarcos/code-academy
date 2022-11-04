@@ -8,6 +8,7 @@ import { PaginaNoEncontradaComponent } from './components/pagina-no-encontrada/p
 
 import { MaterialModule } from '../shared/modules/material.module';
 import { RouterModule } from '@angular/router';
+import { SesionService } from './services/sesion.service';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     RouterModule
   ],
   providers: [
+    SesionService
   ],
   exports: [
     ToolbarComponent,

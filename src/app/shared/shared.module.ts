@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BooleanSiNoPipe } from './pipes/booleanSiNo.pipe';
 import { MaterialModule } from './modules/material.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -12,10 +13,14 @@ import { MaterialModule } from './modules/material.module';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   exports: [
-    BooleanSiNoPipe
+    MaterialModule,
+    ReactiveFormsModule,
+    BooleanSiNoPipe,
+    HttpClientModule
   ]
 })
 export class SharedModule { }
