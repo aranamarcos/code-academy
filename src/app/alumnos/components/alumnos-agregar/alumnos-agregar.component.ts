@@ -29,11 +29,6 @@ export class AlumnosAgregarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submitForm(): void {
-    this.alumnosService.agregarAlumno(this.formulario.value);
-    this.formulario.reset();
-  }
-
   agregarAlumno(){
     const alumno: Alumno = {
       id: Math.round(Math.random()*1000),
@@ -44,6 +39,7 @@ export class AlumnosAgregarComponent implements OnInit {
       password: this.formulario.value.password,
     }
 
+    this.formulario.reset();
     this.alumnosService.agregarAlumno(alumno);
   }
 }

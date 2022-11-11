@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, throwError} from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { Alumno } from 'src/app/models/alumno';
 import { environment } from 'src/environments/environment';
 
@@ -9,9 +9,8 @@ import { environment } from 'src/environments/environment';
 export class AlumnosService {
 
   constructor(
-    private http: HttpClient
-  ) {  }
-
+    private http: HttpClient,
+  ) { }
 
   obtenerAlumnos(): Observable<Alumno[]> {
     return this.http.get<Alumno[]>(`${environment.api}/alumnos`,{
@@ -50,8 +49,9 @@ export class AlumnosService {
   editarAlumno(alumno: Alumno){
     this.http.put<Alumno>(`${environment.api}/alumnos/${alumno.id}`, alumno).pipe(
       catchError(this.manejarError)
-    ).subscribe(console.log);
-    alert("Alumno modificado");
+      ).subscribe(console.log);
+      alert("Alumno modificado");
+      // this.obtenerAlumnos();
   }
 
   eliminarAlumno(id: number){

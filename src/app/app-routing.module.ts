@@ -20,12 +20,9 @@ const rutas: Routes = [
     loadChildren: () => import('./alumnos/alumnos.module').then((m) => m.AlumnosModule),
     canActivate: [AutenticacionGuard]},
   {
-    path: '',
-    redirectTo: 'inicio',
-    pathMatch: 'full' },
+    path: '', redirectTo: 'inicio', pathMatch: 'full' },
   {
-    path: '**',
-    component: PaginaNoEncontradaComponent }
+    path: '**', component: PaginaNoEncontradaComponent }
 ]
 
 @NgModule({

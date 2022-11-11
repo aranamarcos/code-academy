@@ -19,8 +19,8 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
   dataSource: MatTableDataSource<Alumno> = new MatTableDataSource<Alumno>([]);
   alumnos$!: Observable<Alumno[]>;
   suscripcion!: Subscription;
-  alumnosLength$!: Observable<number>;
-  sesion$!: Observable<Sesion>
+  sesion$!: Observable<Sesion>;
+  prueba: any[] = [];
 
 
   constructor(
@@ -30,13 +30,15 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
     ) { }
 
   ngOnInit(): void {
-    this.sesion$ = this.sesionService.obtenerSesion()
+
+    this.sesion$ = this.sesionService.obtenerSesion();
 
     this.alumnos$ = this.alumnosService.obtenerAlumnos();
 
     this.suscripcion = this.alumnos$.subscribe({
       next: (refAlumnos) => {
-        this.dataSource = new MatTableDataSource(refAlumnos)
+        this.dataSource = new MatTableDataSource(refAlumnos),
+        console.log(refAlumnos)
       },
     })
   }
