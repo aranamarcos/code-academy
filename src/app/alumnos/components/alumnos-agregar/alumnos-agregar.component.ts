@@ -40,6 +40,9 @@ export class AlumnosAgregarComponent implements OnInit {
     }
 
     this.formulario.reset();
+    Object.keys(this.formulario.controls).forEach((key) => {
+      this.formulario.controls[key].setErrors(null);
+    });
     this.alumnosService.agregarAlumno(alumno);
   }
 }

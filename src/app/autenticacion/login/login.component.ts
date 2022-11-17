@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.formulario = new FormGroup({
       usuario: new FormControl(),
-      contraseña: new FormControl(),
+      contrasena: new FormControl(),
       admin: new FormControl()
     })
   }

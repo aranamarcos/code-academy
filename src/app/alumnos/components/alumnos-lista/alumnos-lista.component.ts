@@ -31,15 +31,22 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
 
   ngOnInit(): void {
 
+    this.getAlumnos();
+
+    this.suscripcion = this.alumnosService.refresh.subscribe(resp => {
+      this.getAlumnos();
+    })
+
     this.sesion$ = this.sesionService.obtenerSesion();
-
     this.alumnos$ = this.alumnosService.obtenerAlumnos();
+  }
 
-    this.suscripcion = this.alumnos$.subscribe({
-      next: (refAlumnos) => {
-        this.dataSource = new MatTableDataSource(refAlumnos),
-        console.log(refAlumnos)
-      },
+  listaAlumnos$: any;
+
+  getAlumnos() {
+    this.alumnosService.obtenerAlumnos().subscribe(resp => {
+      this.listaAlumnos$ = resp,
+      this.dataSource = new MatTableDataSource(this.listaAlumnos$);
     })
   }
 
