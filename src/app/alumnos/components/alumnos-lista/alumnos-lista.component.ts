@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Alumno } from 'src/app/models/alumno';
 import { AlumnosService } from '../../services/alumnos.service';
@@ -13,6 +13,7 @@ import { SesionService } from '../../../core/services/sesion.service';
   templateUrl: './alumnos-lista.component.html',
   styleUrls: ['./alumnos-lista.component.css'],
 })
+
 export class AlumnosListaComponent implements OnInit, OnDestroy{
 
   columnas: string[] = ['nombre', 'apellido', 'email', 'usuario', 'acciones'];
@@ -20,27 +21,31 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
   alumnos$!: Observable<Alumno[]>;
   suscripcion!: Subscription;
   sesion$!: Observable<Sesion>;
-  prueba: any[] = [];
 
 
   constructor(
     private alumnosService: AlumnosService,
     private router: Router,
-    private sesionService: SesionService
+    private sesionService: SesionService,
     ) { }
 
   ngOnInit(): void {
-
     this.getAlumnos();
-
-    this.suscripcion = this.alumnosService.refresh.subscribe(resp => {
+    this.suscripcion = this.alumnosService.refresh$.subscribe(resp => {
       this.getAlumnos();
     })
-
     this.sesion$ = this.sesionService.obtenerSesion();
     this.alumnos$ = this.alumnosService.obtenerAlumnos();
   }
 
+
+  // ********* Filtrar *********
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // ********* Mostrar tabla *********
   listaAlumnos$: any;
 
   getAlumnos() {
@@ -50,20 +55,12 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
     })
   }
 
-  ngOnDestroy(): void {
-    this.suscripcion.unsubscribe();
-  }
-
+  // ********* Eliminar alumno *********
   eliminarAlumno(id: number){
     this.alumnosService.eliminarAlumno(id);
-    this.alumnos$ = this.alumnosService.obtenerAlumnos();
-    this.alumnos$.subscribe({
-      next: (refAlumnos) => {
-        this.dataSource = new MatTableDataSource(refAlumnos)
-      },
-    })
   }
 
+  // ********* Editar alumno *********
   editarAlumno(alumno: Alumno){
     this.router.navigate(['alumnos/editar', {
       id: alumno.id,
@@ -74,4 +71,9 @@ export class AlumnosListaComponent implements OnInit, OnDestroy{
       password: alumno.password,
     }]);
   }
+
+    // ********* Desuscribir OnDestroy *********
+    ngOnDestroy(): void {
+      this.suscripcion.unsubscribe();
+    }
 };

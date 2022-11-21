@@ -29,3 +29,8 @@ th {
 .w100 {
   width: 100%;
 }
+
+.mat-simple-snackbar .mat-button-wrapper {
+  font-family: 'Material Icons';
+  font-size: 24px;
+}

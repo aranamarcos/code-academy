@@ -11,18 +11,23 @@ import { AlumnosService } from '../../services/alumnos.service';
 })
 export class AlumnosDetalleComponent implements OnInit {
   alumno$!: Observable<Alumno>;
+  loading: boolean;
+  prueba!: Alumno;
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private alumnoService: AlumnosService
-  ) { }
+    private alumnoService: AlumnosService,
+  ) {
+    this.loading = true;
+  }
 
   ngOnInit(): void {
     this.activateRoute.paramMap.subscribe((parametros) => {
       let id = parseInt(parametros.get('id') || '0');
-      this.alumno$ = this.alumnoService.obtenerAlumno(id);
+      this.alumnoService.obtenerAlumno(id).subscribe((param) => {
+        this.prueba = param;
+      })
     })
-
   }
 
 }

@@ -1,7 +1,15 @@
 <div class="row col-md-9" *ngIf="sesion$ | async as sesion">
 
+  <h2 class="titulos">Listado de Alumnos</h2>
+
   <div class="d-flex align-items-center">
-    <h2 class="titulos">Listado de Alumnos</h2>
+    <div class="row col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Filtrar</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
+      </mat-form-field>
+    </div>
+
     <button mat-raised-button routerLink="agregar" class="colorVerde ms-auto" *ngIf="sesion.usuarioActivo?.admin">
       <mat-icon class="botonVerde">add_circle</mat-icon> Agregar Alumno
     </button>

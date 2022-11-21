@@ -1,11 +1,9 @@
 <h2 class="titulos">Detalle de Alumnos</h2>
 
-<div *ngIf="(alumno$ | async)">
-  <pre>
-    {{ alumno$ | async | json }}
-  </pre>
-</div>
+<mat-spinner *ngIf="!prueba"></mat-spinner>
 
-<div *ngIf="!(alumno$ | async)">
-  <p>No se encontro el alumno</p>
+<div *ngIf="prueba">
+  <pre>
+    {{ prueba | json }}
+  </pre>
 </div>

@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, Observable, ReplaySubject, tap, throwError } from 'rxjs';
 import { Alumno } from 'src/app/models/alumno';
 import { environment } from 'src/environments/environment';
@@ -10,14 +11,15 @@ export class AlumnosService {
 
   constructor(
     private http: HttpClient,
+    private _snackBar: MatSnackBar
   ) { }
 
-  private _refresh = new ReplaySubject<void>(1);
+  // ********* Refresh data *********
+  private _refresh$: ReplaySubject<void> = new ReplaySubject<void>(1);
 
-  get refresh(){
-    return this._refresh;
+  get refresh$(){
+    return this._refresh$;
   }
-
 
   // ********* Obtener todos los alumnos *********
   obtenerAlumnos(): Observable<Alumno[]> {
@@ -28,9 +30,6 @@ export class AlumnosService {
       })
     }).pipe(
       catchError(this.manejarError),
-      tap(() => {
-        this.refresh.next();
-      })
     )
   }
 
@@ -42,11 +41,8 @@ export class AlumnosService {
         'encoding': 'UTF-8'
       })
     }).pipe(
-      catchError(this.manejarError),
-      tap(() => {
-        this.refresh.next();
-      })
-    )
+      catchError(this.manejarError)
+    );
   }
 
   // ********* Agregar alumno *********
@@ -59,10 +55,10 @@ export class AlumnosService {
     }).pipe(
       catchError(this.manejarError),
       tap(() => {
-        this.refresh.next();
+        this.refresh$.next();
       })
-    ).subscribe(() => {
-      alert("Alumno agregado");
+      ).subscribe(() => {
+        this.openSnackBar('Alumno agregado', 'add_circle')
     });
   }
 
@@ -76,10 +72,10 @@ export class AlumnosService {
     }).pipe(
       catchError(this.manejarError),
       tap(() => {
-        this.refresh.next();
+        this.refresh$.next();
       })
-    ).subscribe(() => {
-      alert("Alumno modificado");
+      ).subscribe(() => {
+        this.openSnackBar('Alumno modificado', 'edit')
     });
   }
 
@@ -91,65 +87,14 @@ export class AlumnosService {
         'encoding': 'UTF-8'
       })
     }).pipe(
-      catchError(this.manejarError)
-    ).subscribe(() => {
-      alert("Alumno eliminado");
+      catchError(this.manejarError),
+      tap(() => {
+        this.refresh$.next();
+      })
+      ).subscribe(() => {
+        this.openSnackBar('Alumno eliminado', 'delete')
     });
   }
-
-
-  // obtenerAlumnos(): Observable<Alumno[]> {
-  //   return this.http.get<Alumno[]>(`${environment.api}/alumnos`,{
-  //     headers: new HttpHeaders({
-  //       'content-type': 'application/json',
-  //       'encoding': 'UTF-8'
-  //     })
-  //   }).pipe(
-  //     catchError(this.manejarError)
-  //   )
-  // }
-
-  // obtenerAlumno(id: number){
-  //   return this.http.get<Alumno>(`${environment.api}/alumnos/${id}`,{
-  //     headers: new HttpHeaders({
-  //       'content-type': 'application/json',
-  //       'encoding': 'UTF-8'
-  //     })
-  //   }).pipe(
-  //     catchError(this.manejarError)
-  //   )
-  // }
-
-  // agregarAlumno(alumno: Alumno) {
-  //   this.http.post(`${environment.api}/alumnos/`, alumno, {
-  //     headers: new HttpHeaders({
-  //       'content-type': 'application/json',
-  //       'encoding': 'UTF-8'
-  //     })
-  //   }).pipe(
-  //     catchError(this.manejarError)
-  //   ).subscribe(() => {
-  //     alert("Alumno agregado");
-  //   });
-  // }
-
-  // editarAlumno(alumno: Alumno){
-  //   this.http.put<Alumno>(`${environment.api}/alumnos/${alumno.id}`, alumno).pipe(
-  //     catchError(this.manejarError)
-  //   ).subscribe(() => {
-  //     alert("Alumno editado");
-  //   });
-  // }
-
-  // eliminarAlumno(id: number){
-  //   this.http.delete<Alumno>(`${environment.api}/alumnos/${id}`).pipe(
-  //     catchError(this.manejarError)
-  //   ).subscribe(() => {
-  //     alert("Alumno eliminado");
-  //   });
-  // }
-
-
 
   // ********* Manejo de errores *********
   private manejarError(error: HttpErrorResponse){
@@ -159,6 +104,15 @@ export class AlumnosService {
       console.warn('Error del lado del servidor', error.error.message);
     }
     return throwError(() => new Error('Error en la comunicacion HTTP'));
+  }
+
+  // ********* Mensaje SnackBar *********
+  mensaje_DurationInSeconds = 1.5;
+
+  openSnackBar(msj: string, icon: string) {
+    this._snackBar.open(msj, icon, {
+      duration: this.mensaje_DurationInSeconds * 1000,
+    })
   }
 
 }
