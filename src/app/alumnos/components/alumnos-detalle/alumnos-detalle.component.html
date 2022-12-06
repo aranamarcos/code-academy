@@ -1,9 +1,11 @@
 <h2 class="titulos">Detalle de Alumnos</h2>
 
-<mat-spinner *ngIf="!prueba"></mat-spinner>
+<!-- ********* Spinner de espera ********* -->
+<mat-spinner *ngIf="!detalleAlumno"></mat-spinner>
 
-<div *ngIf="prueba">
+<!-- ********* Detalle del alumno ********* -->
+<div *ngIf="detalleAlumno">
   <pre>
-    {{ prueba | json }}
+    {{ detalleAlumno | json }}
   </pre>
 </div>

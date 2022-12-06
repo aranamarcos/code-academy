@@ -1,29 +1,38 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { catchError, Observable, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Curso } from '../../models/curso';
 
 @Injectable()
 export class CursosService {
 
-  private cursosAdmin: Curso[] = [
-    {curso: 'Angular', profesor: 'Perez', comision: 1368, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: true},
-    {curso: 'Angular', profesor: 'Lopez', comision: 8469, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: true},
-    {curso: 'React', profesor: 'Gonzalez', comision: 1045, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: false},
-    {curso: 'React', profesor: 'Ramirez', comision: 5289, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: true},
-    {curso: 'Vue', profesor: 'Gonzalez', comision: 1313, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: true},
-    {curso: 'Vue', profesor: 'Jimenez', comision: 4589, fechaInicio: new Date(2022, 11, 1), fechaFin: new Date(2023, 2, 20), inscripcionAbierta: true}
-  ];
+  constructor(
+    private http: HttpClient,
+    private _snackBar: MatSnackBar
+  ) { }
 
-  constructor() { }
+  // ********* Obtener todos los alumnos *********
+  obtenerCursos(): Observable<Curso[]> {
+    return this.http.get<Curso[]>(`${environment.api}/cursos`,{
+      headers: new HttpHeaders({
+        'content-type': 'application/json',
+        'encoding': 'UTF-8'
+      })
+    }).pipe(
+      catchError(this.manejarError),
+    );
+  }
 
-  obtenerCursosPromise(): Promise<Curso[] | any>{
-    return new Promise((resolve, reject) => {
-      if(this.cursosAdmin.length > 0){
-        resolve(this.cursosAdmin);
-      }else{
-        reject({
-          mensaje: 'No hay cursos'
-        });
-      };
-    });
-  };
-};
+  // ********* Manejo de errores *********
+  private manejarError(error: HttpErrorResponse){
+    if(error.error instanceof ErrorEvent){
+      console.warn('Error del lado del cliente', error.error.message);
+    }else{
+      console.warn('Error del lado del servidor', error.error.message);
+    }
+    return throwError(() => new Error('Error en la comunicacion HTTP'));
+  }
+
+}

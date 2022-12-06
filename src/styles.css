@@ -3,34 +3,84 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+
+/* ********* Titulos *********  */
+
 .titulos {
   padding-top: 20px;
   color: #3F51B5;
   font-weight: bold;
 }
 
+
+/* ********* Tabla *********  */
+
 th {
-  background-color: grey;
+  background-color: black;
+  border-top: 30px solid #fafafa !important;
   color: white !important;
+  text-align: center !important;
+  max-height: 5px !important;
 }
 
-.colorVerde {
+.mat-table {
+  overflow: auto;
+  max-height: 270px;
+}
+
+td {
+  text-align: center !important;
+}
+
+
+/* ********* Color iconos (ver, editar, eliminar) *********  */
+
+.colorIconoVer {
   color: LightSeaGreen;
 }
 
-.colorRojo {
-  color: LightCoral;
-}
-
-.colorAmarillo {
+.colorIconoEditar {
   color: gold;
 }
 
-.w100 {
-  width: 100%;
+.colorIconoEliminar {
+  color: gray;
 }
 
-.mat-simple-snackbar .mat-button-wrapper {
-  font-family: 'Material Icons';
-  font-size: 24px;
+
+/* ********* Modal *********  */
+
+.contenedor-modal{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  padding-top: 5rem;
+  top: 65px;
+  left: 91px;
+  background-color: rgba(144, 148, 150, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 2;
 }
+
+.contenido-modal{
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background-color: #fff;
+  border: 3px solid #3F51B5;
+  border-radius: 10px;
+}
+
+.contenido-modal h2{
+  text-align: center;
+  border-bottom: 2px solid #3F51B5;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.contenido-modal button{
+  margin-top: 20px;
+}
+

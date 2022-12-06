@@ -15,7 +15,9 @@ export class AlumnosAgregarComponent implements OnInit {
   formulario: FormGroup;
 
 
-  constructor(private alumnosService: AlumnosService) {
+  constructor(
+    private alumnosService: AlumnosService,
+    ) {
     this.formulario = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.pattern('^(?!.* $)[A-Za-z ]+$')]),
       apellido: new FormControl('', [Validators.required, Validators.pattern('^(?!.* $)[A-Za-z ]+$')]),
@@ -26,8 +28,7 @@ export class AlumnosAgregarComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   agregarAlumno(){
     const alumno: Alumno = {

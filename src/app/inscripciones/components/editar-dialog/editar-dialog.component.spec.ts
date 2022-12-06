@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CursosAbmComponent } from './cursos-abm.component';
+import { EditarDialogComponent } from './editar-dialog.component';
 
-describe('CursosAbmComponent', () => {
-  let component: CursosAbmComponent;
-  let fixture: ComponentFixture<CursosAbmComponent>;
+describe('EditarDialogComponent', () => {
+  let component: EditarDialogComponent;
+  let fixture: ComponentFixture<EditarDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CursosAbmComponent ]
+      declarations: [ EditarDialogComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CursosAbmComponent);
+    fixture = TestBed.createComponent(EditarDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

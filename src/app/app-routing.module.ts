@@ -9,7 +9,8 @@ const rutas: Routes = [
     path: 'autenticacion',
     loadChildren: () => import('./autenticacion/autenticacion.module').then((m) => m.AutenticacionModule)},
   {
-    path: 'inicio', component: InicioComponent,
+    path: 'inicio',
+    component: InicioComponent,
     canActivate: [AutenticacionGuard] },
   {
     path: 'cursos',
@@ -18,6 +19,10 @@ const rutas: Routes = [
   {
     path: 'alumnos',
     loadChildren: () => import('./alumnos/alumnos.module').then((m) => m.AlumnosModule),
+    canActivate: [AutenticacionGuard]},
+  {
+    path: 'inscripciones',
+    loadChildren: () => import('./inscripciones/inscripciones.module').then((m) => m.InscripcionesModule),
     canActivate: [AutenticacionGuard]},
   {
     path: '', redirectTo: 'inicio', pathMatch: 'full' },

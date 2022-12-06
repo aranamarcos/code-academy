@@ -1,7 +1,7 @@
 export interface Curso {
-  curso: string;
-  profesor: string;
+  nombre: string;
   comision: number;
+  profesor: string;
   fechaInicio: Date;
   fechaFin: Date;
   inscripcionAbierta: boolean;

@@ -1,5 +1,6 @@
-<mat-drawer-container class="navbar" autosize>
-  <mat-drawer #drawer class="contenido-navbar" [(opened)]="opened" mode="side">
+<mat-drawer-container class="navbar" autosize *ngIf="sesion$ | async as sesion">
+
+  <mat-drawer #drawer class="contenido-navbar" [(opened)]="opened" mode="side" *ngIf="sesion.sesionActiva">
     <div class="d-flex flex-column">
 
       <!-- menu -->
@@ -28,7 +29,7 @@
 
       <!-- inscripciones -->
       <div class="d-flex align-items-center contenedor-opcion">
-        <button class="btn btn-light boton-azul">
+        <button class="btn btn-light boton-azul" routerLink="inscripciones/lista">
           <mat-icon>edit</mat-icon>
         </button>
         <h3 class="texto-menuAzul" *ngIf="showFiller">INSCRIPCIONES</h3>

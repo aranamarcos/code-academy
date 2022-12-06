@@ -9,6 +9,8 @@ import { PaginaNoEncontradaComponent } from './components/pagina-no-encontrada/p
 import { MaterialModule } from '../shared/modules/material.module';
 import { RouterModule } from '@angular/router';
 import { SesionService } from './services/sesion.service';
+import { StoreModule } from '@ngrx/store';
+import { sesionFeatureKey, reducer } from './state/sesion.reducer';
 
 
 @NgModule({
@@ -16,12 +18,13 @@ import { SesionService } from './services/sesion.service';
     InicioComponent,
     NavbarComponent,
     ToolbarComponent,
-    PaginaNoEncontradaComponent
+    PaginaNoEncontradaComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forFeature(sesionFeatureKey, reducer)
   ],
   providers: [
     SesionService

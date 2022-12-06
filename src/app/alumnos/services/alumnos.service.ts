@@ -112,6 +112,7 @@ export class AlumnosService {
   openSnackBar(msj: string, icon: string) {
     this._snackBar.open(msj, icon, {
       duration: this.mensaje_DurationInSeconds * 1000,
+      verticalPosition: 'top'
     })
   }
 

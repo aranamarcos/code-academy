@@ -1,8 +1,18 @@
-<div>
+<div *ngIf="sesion$ | async as sesion">
   <mat-toolbar color="primary" id="toolbar">
-    <div class="d-flex align-items-center" routerLink="inicio" style="cursor:pointer;">
-      <img src="./assets/img/LogoCodeAcademy.png" alt="Logo">
-      <h1>CODE Academy</h1>
+    <div class="d-flex align-items-center w-100">
+
+      <div class="d-flex align-items-center w-100" routerLink="inicio" style="cursor:pointer;">
+        <img src="./assets/img/LogoCodeAcademy.png" alt="Logo">
+        <h1>CODE Academy</h1>
+      </div>
+
+      <div class="d-flex align-items-center" *ngIf="sesion.sesionActiva">
+        <h3>{{ sesion.usuarioActivo?.usuario }}</h3>
+        <button mat-icon-button color="accent" (click)="logout()" routerLink="autenticacion/login">
+          <mat-icon>logout</mat-icon>
+        </button>
+      </div>
     </div>
   </mat-toolbar>
 </div>
