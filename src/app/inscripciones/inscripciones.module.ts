@@ -8,14 +8,19 @@ import { EffectsModule } from '@ngrx/effects';
 import { InscripcionesEffects } from './state/inscripciones.effects';
 import { StoreModule } from '@ngrx/store';
 import { inscripcionesFeatureKey, reducer } from './state/inscripciones.reducer';
-import { EditarDialogComponent } from './components/editar-dialog/editar-dialog.component';
+import { EditarInscripcionesComponent } from './components/editar-inscripciones/editar-inscripciones.component';
+import { InscripcionService } from './services/inscripciones.service';
+import { AgregarInscripcionesComponent } from './components/agregar-inscripciones/agregar-inscripciones.component';
+import { DetalleInscripcionesComponent } from './components/detalle-inscripciones/detalle-inscripciones.component';
 
 
 @NgModule({
   declarations: [
     ListaInscripcionesComponent,
-    EditarDialogComponent,
-    EditarDialogComponent
+    EditarInscripcionesComponent,
+    EditarInscripcionesComponent,
+    AgregarInscripcionesComponent,
+    DetalleInscripcionesComponent
   ],
   imports: [
     CommonModule,
@@ -23,6 +28,9 @@ import { EditarDialogComponent } from './components/editar-dialog/editar-dialog.
     SharedModule,
     StoreModule.forFeature(inscripcionesFeatureKey, reducer),
     EffectsModule.forFeature([InscripcionesEffects])
+  ],
+  providers: [
+    InscripcionService
   ]
 })
 export class InscripcionesModule { }

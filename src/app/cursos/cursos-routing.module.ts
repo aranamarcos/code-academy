@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CursosEditarComponent } from './components/cursos-editar/cursos-editar.component';
-import { CursosComponent } from './components/cursos/cursos.component';
-import { CursosListaComponent } from './components/cursos-lista/cursos-lista.component';
+import { EditarCursosComponent } from './components/editar-cursos/editar-cursos.component';
+import { InicioCursosComponent } from './components/inicio-cursos/inicio-cursos.component';
+import { ListaCursosComponent } from './components/lista-cursos/lista-cursos.component';
 
 const routes: Routes = [
-  { path: '', component: CursosComponent, children: [
-    { path: 'abm', component: CursosEditarComponent },
-    { path: 'lista', component: CursosListaComponent }
+  { path: '', component: InicioCursosComponent, children: [
+    { path: 'editar', component: EditarCursosComponent },
+    { path: 'cargar', component: EditarCursosComponent },
+    { path: 'lista', component: ListaCursosComponent }
   ]},
 ];
 

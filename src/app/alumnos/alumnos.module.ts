@@ -2,28 +2,30 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AlumnosRoutingModule } from './alumnos-routing.module';
-import { AlumnosListaComponent } from './components/alumnos-lista/alumnos-lista.component';
-import { AlumnosAgregarComponent } from './components/alumnos-agregar/alumnos-agregar.component';
-import { AlumnosComponent } from './components/alumnos/alumnos.component';
+import { InicioAlumnosComponent } from './components/inicio-alumnos/inicio-alumnos.component';
 import { AlumnosService } from './services/alumnos.service';
 import { SharedModule } from '../shared/shared.module';
-import { AlumnosEditarComponent } from './components/alumnos-editar/alumnos-editar.component';
-import { AlumnosDetalleComponent } from './components/alumnos-detalle/alumnos-detalle.component';
-
-AlumnosAgregarComponent
+import { EditarAlumnosComponent } from './components/editar-alumnos/editar-alumnos.component';
+import { DetalleAlumnosComponent } from './components/detalle-alumnos/detalle-alumnos.component';
+import { EffectsModule } from '@ngrx/effects';
+import { AlumnosEffects } from './state/alumnos.effects';
+import { StoreModule } from '@ngrx/store';
+import { alumnosFeatureKey, reducer } from './state/alumnos.reducer';
+import { ListaAlumnosComponent } from './components/lista-alumnos/lista-alumnos.component';
 
 @NgModule({
   declarations: [
-    AlumnosListaComponent,
-    AlumnosAgregarComponent,
-    AlumnosComponent,
-    AlumnosEditarComponent,
-    AlumnosDetalleComponent,
+    ListaAlumnosComponent,
+    InicioAlumnosComponent,
+    EditarAlumnosComponent,
+    DetalleAlumnosComponent,
   ],
   imports: [
     CommonModule,
     AlumnosRoutingModule,
-    SharedModule
+    SharedModule,
+    StoreModule.forFeature(alumnosFeatureKey, reducer),
+    EffectsModule.forFeature([AlumnosEffects])
   ],
   providers: [
     AlumnosService

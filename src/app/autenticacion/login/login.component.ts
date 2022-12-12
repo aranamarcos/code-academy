@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
       usuario: new FormControl('admin'),
       contrasena: new FormControl('admin'),
       admin: new FormControl(true),
-      canActivateChild: new FormControl(true),
-      canLoad: new FormControl(true)
+      // canActivateChild: new FormControl(true),
+      // canLoad: new FormControl(true)
     })
   }
 
@@ -36,11 +36,14 @@ export class LoginComponent implements OnInit {
   login(){
     let u: Usuario = {
       id: 0,
+      nombre: "",
+      apellido: "",
+      email: "",
       usuario: this.formulario.value.usuario,
       contrasena: this.formulario.value.contrasena,
       admin: this.formulario.value.admin,
-      canActivateChild: this.formulario.value.canActivateChild,
-      canLoad: this.formulario.value.canLoad
+      // canActivateChild: this.formulario.value.canActivateChild,
+      // canLoad: this.formulario.value.canLoad
     }
     this.sesionService.login(u).subscribe((usuario: Usuario) => {
       if(usuario) {

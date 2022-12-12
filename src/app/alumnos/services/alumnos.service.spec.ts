@@ -24,10 +24,10 @@ describe('AlumnosService', () => {
 
   it('El servicio retorna un arreglo de alumnos mockeados', (done: DoneFn) => {
     const mockDatos: Alumno[] = [
-      {"nombre":"Sabina","apellido":"Barrows","email":"David82@yahoo.com","usuario":"Bernhard_Casper","password":"KOztOQtEMekvJQf","id":9},
-      {"nombre":"MelvinaS","apellido":"Jacobson","email":"Noelia.Satterfield16@hotmail.com","usuario":"Maeve.Gleichner24","password":"Bta3bw1RArxL29f","id":12},
-      {"nombre":"Jonatan","apellido":"Halvorson","email":"Russell.Treutel@yahoo.com","usuario":"Dorothea_Lynch","password":"IfVs8EehYh9WY4F","id":13},
-      {"nombre":"Boyd","apellido":"Barrows","email":"Arnoldo.Erdman72@yahoo.com","usuario":"Alysson49","password":"ZA5ghPLDvbJVgOP","id":18}
+      {"nombre":"Sabina","apellido":"Barrows","email":"David82@yahoo.com","usuario":"Bernhard_Casper","contrasena":"KOztOQtEMekvJQf","id":9},
+      {"nombre":"MelvinaS","apellido":"Jacobson","email":"Noelia.Satterfield16@hotmail.com","usuario":"Maeve.Gleichner24","contrasena":"Bta3bw1RArxL29f","id":12},
+      {"nombre":"Jonatan","apellido":"Halvorson","email":"Russell.Treutel@yahoo.com","usuario":"Dorothea_Lynch","contrasena":"IfVs8EehYh9WY4F","id":13},
+      {"nombre":"Boyd","apellido":"Barrows","email":"Arnoldo.Erdman72@yahoo.com","usuario":"Alysson49","contrasena":"ZA5ghPLDvbJVgOP","id":18}
     ];
 
     httpClientSpy.get.and.returnValue(of(mockDatos));

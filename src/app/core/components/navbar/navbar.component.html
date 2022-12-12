@@ -35,6 +35,14 @@
         <h3 class="texto-menuAzul" *ngIf="showFiller">INSCRIPCIONES</h3>
       </div>
 
+      <!-- usuarios -->
+      <div class="d-flex align-items-center contenedor-opcion" *ngIf="sesion.usuarioActivo?.admin">
+        <button class="btn btn-light boton-azul" routerLink="usuarios">
+          <mat-icon>badge</mat-icon>
+        </button>
+        <h3 class="texto-menuAzul" *ngIf="showFiller">USUARIOS</h3>
+      </div>
+
     </div>
   </mat-drawer>
 

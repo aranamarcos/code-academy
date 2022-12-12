@@ -4,5 +4,11 @@ export interface Alumno {
   apellido: string;
   email: string;
   usuario: string;
-  password: string;
+  contrasena: string;
+  admin: boolean;
+}
+
+export interface AlumnoState{
+  cargando: boolean;
+  alumnos: Alumno[];
 }

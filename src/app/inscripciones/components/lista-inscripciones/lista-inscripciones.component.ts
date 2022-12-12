@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { selectSesionActiva } from 'src/app/core/state/sesion.selectors';
-import { selectStateCursos } from 'src/app/cursos/state/cursos.selectors';
-import { Curso } from 'src/app/models/curso';
-import { CursoState } from 'src/app/models/curso.state';
-import { Inscripcion } from 'src/app/models/inscripcion';
+import { cargarInscripciones, eliminarInscripcion } from '../../state/inscripciones.actions';
+import { selectInscripciones, selectInscripcionesCargando } from '../../state/inscripciones.selectors';
 import { Sesion } from 'src/app/models/sesion';
-import { Usuario } from 'src/app/models/usuario';
-import { agregarInscripcion, cargarInscripciones, eliminarInscripcion } from '../../state/inscripciones.actions';
-import { InscripcionState } from '../../state/inscripciones.reducer';
-import { selectInscripciones } from '../../state/inscripciones.selectors';
-import { EditarDialogComponent } from '../editar-dialog/editar-dialog.component';
+import { EditarInscripcionesComponent } from '../editar-inscripciones/editar-inscripciones.component';
+import { Inscripcion, InscripcionState } from 'src/app/models/inscripcion';
+import { MatPaginator } from '@angular/material/paginator';
+import { AgregarInscripcionesComponent } from '../agregar-inscripciones/agregar-inscripciones.component';
+import { Curso, CursoState } from '../../../models/curso';
+import { DetalleInscripcionesComponent } from '../detalle-inscripciones/detalle-inscripciones.component';
 
 
 @Component({
@@ -21,16 +20,19 @@ import { EditarDialogComponent } from '../editar-dialog/editar-dialog.component'
   templateUrl: './lista-inscripciones.component.html',
   styleUrls: ['./lista-inscripciones.component.css']
 })
-export class ListaInscripcionesComponent implements OnInit {
+export class ListaInscripcionesComponent implements OnInit, OnDestroy {
+
+  columnas: string[] = ['nombre', 'apellido', 'curso', 'comision', 'usuario','acciones'];
   dataSource!: MatTableDataSource<Inscripcion>;
-  cursos$!: Observable<Curso[]>;
-  usuarioActivo?: Usuario;
-  cursoSeleccionado!: Curso;
-  columnas: string[] = ['id', 'curso', 'estudiante', 'acciones'];
+  sesion$!: Observable<Sesion>
+  inscripciones$!: Observable<Inscripcion[]>
+  cargando$!: Observable<boolean>
+  suscripcionInscripciones!: Subscription;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private storeInscripciones: Store<InscripcionState>,
-    private storeCursos: Store<CursoState>,
     private storeSesion: Store<Sesion>,
     private dialog: MatDialog
   ) {
@@ -38,33 +40,53 @@ export class ListaInscripcionesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.storeInscripciones.select(selectInscripciones).subscribe((inscripciones: Inscripcion[]) => {
+    // Estado de la carga de datos (cargando) para el spinner de espera
+    this.cargando$ = this.storeInscripciones.select(selectInscripcionesCargando);
+
+    // Dato de sesion para saber si el usuario es admin
+    this.sesion$ = this.storeSesion.select(selectSesionActiva);
+
+    // Datos para la tabla de inscripciones
+    this.suscripcionInscripciones = this.storeInscripciones.select(selectInscripciones).subscribe((inscripciones: Inscripcion[]) => {
       this.dataSource = new MatTableDataSource<Inscripcion>(inscripciones);
+      this.dataSource.paginator = this.paginator;
     });
-    this.cursos$ = this.storeCursos.select(selectStateCursos);
-    this.storeSesion.select(selectSesionActiva).subscribe((sesion: Sesion) => {
-      this.usuarioActivo = sesion.usuarioActivo;
+  }
+
+  ngOnDestroy(): void {
+    this.suscripcionInscripciones.unsubscribe;
+  }
+
+  // ********* Filtrar *********
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  // ********* Crear *********
+  crear(){
+    this.dialog.open(AgregarInscripcionesComponent, {
+      minWidth: '400px'
     })
   }
 
-  inscribir(curso: Curso){
-    if(this.usuarioActivo){
-      const inscripcion: Inscripcion = {
-        id: 0,
-        curso: curso,
-        estudiante: this.usuarioActivo
-      };
-      this.storeInscripciones.dispatch(agregarInscripcion({inscripcion}));
-    }
-  }
-
-  editar(inscripcion: Inscripcion){
-    this.dialog.open(EditarDialogComponent, {
-      width: '300px',
+  // ********* Detalle *********
+  detalle(inscripcion: Inscripcion){
+    this.dialog.open(DetalleInscripcionesComponent, {
+      minWidth: '400px',
       data: inscripcion
     })
   }
 
+  // ********* Editar *********
+  editar(inscripcion: Inscripcion){
+    this.dialog.open(EditarInscripcionesComponent, {
+      minWidth: '400px',
+      data: inscripcion
+    })
+  }
+
+  // ********* Eliminar *********
   eliminar(inscripcion: Inscripcion){
     this.storeInscripciones.dispatch(eliminarInscripcion({inscripcion}));
   }

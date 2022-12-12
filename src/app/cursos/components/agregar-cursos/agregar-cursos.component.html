@@ -1,0 +1,82 @@
+<h2 mat-dialog-title class="tituloDialog">Crear Curso</h2>
+
+<div mat-dialog-content class="mt-4">
+    <form [formGroup]="formulario">
+
+      <div class="d-flex flex-column">
+
+        <div class="row">
+          <!-- nombre -->
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Nombre</mat-label>
+              <input type="text" matInput autocomplete="off" formControlName="nombre">
+              <mat-error *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.errors?.['required']">El campo es requerido</mat-error>
+              <mat-error *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.errors?.['pattern']">El formato no es correcto</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- inscripcion abierta -->
+          <div class="col-md-6">
+            <div class="d-flex align-items-center justify-content-center" style="height: 70%">
+              <mat-slide-toggle formControlName="inscripcionAbierta">Inscripcion abierta</mat-slide-toggle>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- profesor -->
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Profesor</mat-label>
+              <input type="text" matInput autocomplete="off" formControlName="profesor">
+              <mat-error *ngIf="formulario.get('profesor')?.touched && formulario.get('profesor')?.errors?.['required']">El campo es requerido</mat-error>
+              <mat-error *ngIf="formulario.get('profesor')?.touched && formulario.get('profesor')?.errors?.['pattern']">El formato no es correcto</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- comision -->
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Comision</mat-label>
+              <input type="text" matInput autocomplete="off" formControlName="comision">
+              <mat-error *ngIf="formulario.get('comision')?.touched && formulario.get('comision')?.errors?.['required']">El campo es requerido</mat-error>
+              <mat-error *ngIf="formulario.get('comision')?.touched && formulario.get('comision')?.errors?.['pattern']">El formato no es correcto</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- fecha inicio -->
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de Inicio</mat-label>
+              <div class="d-flex">
+                <input matInput [matDatepicker]="pickerfechaInicio" formControlName="fechaInicio" readonly="">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerfechaInicio"></mat-datepicker-toggle>
+                <mat-datepicker #pickerfechaInicio></mat-datepicker>
+              </div>
+              <mat-error *ngIf="formulario.get('fechaInicio')?.touched && formulario.get('fechaInicio')?.errors?.['required']">El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <!-- fecha fin -->
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Fecha de Fin</mat-label>
+              <div class="d-flex">
+                <input matInput [matDatepicker]="pickerfechaFin" formControlName="fechaFin" readonly="">
+                <mat-datepicker-toggle matIconSuffix [for]="pickerfechaFin"></mat-datepicker-toggle>
+                <mat-datepicker #pickerfechaFin></mat-datepicker>
+              </div>
+              <mat-error *ngIf="formulario.get('fechaFin')?.touched && formulario.get('fechaFin')?.errors?.['required']">El campo es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div>
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="accent" (click)="agregar()" [disabled]="formulario.invalid">Agregar</button>
+  </div>
+</div>

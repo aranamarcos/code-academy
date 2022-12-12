@@ -4,12 +4,13 @@ import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { Sesion } from 'src/app/models/sesion';
 import { SesionService } from '../services/sesion.service';
-import { selectSesionActiva, selectSesionState } from '../state/sesion.selectors';
+import { selectSesionActiva } from '../state/sesion.selectors';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+export class AutenticacionGuard implements CanActivate, CanDeactivate<unknown> {
+  // export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
   constructor(
     private sesion: SesionService,
     private router: Router,
@@ -33,23 +34,23 @@ export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDea
     );
   }
 
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.store.select(selectSesionActiva).pipe(
-        map((sesion: Sesion) => {
-          if(sesion.usuarioActivo?.canActivateChild){
-            return true;
-          }else if(childRoute.routeConfig?.path == 'listar'){
-            return true;
-          }else{
-            alert("No tiene permisos para acceder a este sitio");
-            this.router.navigate(['inicio']);
-            return false;
-          }
-        })
-      );
-  }
+  // canActivateChild(
+  //   childRoute: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  //     return this.store.select(selectSesionActiva).pipe(
+  //       map((sesion: Sesion) => {
+  //         if(sesion.usuarioActivo?.canActivateChild){
+  //           return true;
+  //         }else if(childRoute.routeConfig?.path == 'listar'){
+  //           return true;
+  //         }else{
+  //           alert("No tiene permisos para acceder a este sitio");
+  //           this.router.navigate(['inicio']);
+  //           return false;
+  //         }
+  //       })
+  //     );
+  // }
 
   canDeactivate(
     component: unknown,
@@ -59,19 +60,19 @@ export class AutenticacionGuard implements CanActivate, CanActivateChild, CanDea
     return true;
   }
 
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return this.store.select(selectSesionActiva).pipe(
-        map((sesion: Sesion) => {
-          if(sesion.usuarioActivo?.canLoad){
-            return true;
-          }else{
-            alert("No tiene permisos para acceder a este sitio");
-            this.router.navigate(['inicio']);
-            return false;
-          }
-        })
-      );
-  }
+  // canLoad(
+  //   route: Route,
+  //   segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  //     return this.store.select(selectSesionActiva).pipe(
+  //       map((sesion: Sesion) => {
+  //         if(sesion.usuarioActivo?.canLoad){
+  //           return true;
+  //         }else{
+  //           alert("No tiene permisos para acceder a este sitio");
+  //           this.router.navigate(['inicio']);
+  //           return false;
+  //         }
+  //       })
+  //     );
+  // }
 }

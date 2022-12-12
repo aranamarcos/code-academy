@@ -16,11 +16,11 @@ export class NavbarComponent implements OnInit {
   sesion$!: Observable<Sesion>;
 
   constructor(
-    private store: Store<Sesion>
+    private storeSesion: Store<Sesion>,
   ) { }
 
   ngOnInit(): void {
-    this.sesion$ = this.store.select(selectSesionActiva);
+    this.sesion$ = this.storeSesion.select(selectSesionActiva);
   }
 
 }

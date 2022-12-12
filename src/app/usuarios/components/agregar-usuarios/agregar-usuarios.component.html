@@ -1,0 +1,75 @@
+<h2 mat-dialog-title class="tituloDialog">Crear Usuario</h2>
+
+<div mat-dialog-content class="mt-4">
+    <form [formGroup]="formulario">
+
+        <div class="d-flex flex-column">
+
+            <div class="row">
+                <!-- nombre -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nombre</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="nombre">
+                        <mat-error *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.errors?.['required']">El campo es requerido</mat-error>
+                        <mat-error *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.errors?.['pattern']">El formato no es correcto</mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- apellido -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Apellido</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="apellido">
+                        <mat-error *ngIf="formulario.get('apellido')?.touched && formulario.get('apellido')?.errors?.['required']">El campo es requerido</mat-error>
+                        <mat-error *ngIf="formulario.get('apellido')?.touched && formulario.get('apellido')?.errors?.['pattern']">El formato no es correcto</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- usuario -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Usuario</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="usuario">
+                        <mat-error *ngIf="formulario.get('usuario')?.touched && formulario.get('usuario')?.errors?.['required']">El campo es requerido</mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- contrasena -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Contraseña</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="contrasena">
+                        <mat-error *ngIf="formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors?.['required']">El campo es requerido</mat-error>
+                        <mat-error *ngIf="formulario.get('contrasena')?.touched && formulario.get('contrasena')?.errors?.['pattern']">El formato no es correcto</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- email -->
+                <div class="col-md-6">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Email</mat-label>
+                        <input type="text" matInput autocomplete="off" formControlName="email">
+                        <mat-error *ngIf="formulario.get('email')?.touched && formulario.get('email')?.errors?.['required']">El campo es requerido</mat-error>
+                        <mat-error *ngIf="formulario.get('email')?.touched && formulario.get('email')?.errors?.['pattern']">El formato no es correcto</mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- Admin -->
+                <div class="col-md-6">
+                    <div class="d-flex align-items-center justify-content-center" style="height: 70%">
+                        <mat-slide-toggle formControlName="admin">Admin</mat-slide-toggle>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+  <div>
+    <button mat-button (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="accent" (click)="agregar()" [disabled]="formulario.invalid">Agregar</button>
+  </div>
+</div>

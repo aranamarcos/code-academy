@@ -1,38 +1,29 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
+import { Curso } from 'src/app/models/curso';
 import { environment } from 'src/environments/environment';
-import { Curso } from '../../models/curso';
 
 @Injectable()
 export class CursosService {
 
   constructor(
-    private http: HttpClient,
-    private _snackBar: MatSnackBar
+    private http: HttpClient
   ) { }
 
-  // ********* Obtener todos los alumnos *********
-  obtenerCursos(): Observable<Curso[]> {
-    return this.http.get<Curso[]>(`${environment.api}/cursos`,{
-      headers: new HttpHeaders({
-        'content-type': 'application/json',
-        'encoding': 'UTF-8'
-      })
-    }).pipe(
-      catchError(this.manejarError),
-    );
+  obtenerCursos(): Observable<Curso[]>{
+    return this.http.get<Curso[]>(`${environment.api}/cursos`);
   }
 
-  // ********* Manejo de errores *********
-  private manejarError(error: HttpErrorResponse){
-    if(error.error instanceof ErrorEvent){
-      console.warn('Error del lado del cliente', error.error.message);
-    }else{
-      console.warn('Error del lado del servidor', error.error.message);
-    }
-    return throwError(() => new Error('Error en la comunicacion HTTP'));
+  agregarCurso(curso: Curso): Observable<Curso>{
+    return this.http.post<Curso>(`${environment.api}/cursos`, curso);
   }
 
+  editarCurso(curso: Curso): Observable<Curso>{
+    return this.http.put<Curso>(`${environment.api}/cursos/${curso.id}`, curso);
+  }
+
+  eliminarCurso(curso: Curso): Observable<Curso>{
+    return this.http.delete<Curso>(`${environment.api}/cursos/${curso.id}`);
+  }
 }

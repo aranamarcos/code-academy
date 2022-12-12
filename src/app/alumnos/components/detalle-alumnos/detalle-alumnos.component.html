@@ -1,0 +1,78 @@
+<div *ngIf="sesion$ | async as sesion">
+
+  <h2 mat-dialog-title class="tituloDialog">Detalle Alumno</h2>
+
+  <pre>
+    {{ alumno | json }}
+  </pre>
+
+  <h3 class="text-center fw-bold text-decoration-underline">Cursos inscriptos</h3>
+
+  <!-- ********* Spinner ********* -->
+  <mat-spinner *ngIf="(cargando$ | async)"></mat-spinner>
+
+    <!-- ********* Tabla ********* -->
+    <table class="lista-tabla" mat-table [dataSource]="dataSource" *ngIf="!(cargando$ | async)" style="width: 100%;">
+
+        <!-- usuario -->
+        <ng-container matColumnDef="usuario">
+            <th mat-header-cell *matHeaderCellDef>Usuario</th>
+            <td mat-cell *matCellDef="let element">{{ element.alumno.usuario }}</td>
+        </ng-container>
+
+        <!-- nombre -->
+        <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef>Nombre</th>
+            <td mat-cell *matCellDef="let element">{{ element.curso.nombre }}</td>
+        </ng-container>
+
+        <!-- comision -->
+        <ng-container matColumnDef="comision">
+            <th mat-header-cell *matHeaderCellDef>Comision</th>
+            <td mat-cell *matCellDef="let element">{{ element.curso.comision }}</td>
+        </ng-container>
+
+        <!-- profesor -->
+        <ng-container matColumnDef="profesor">
+            <th mat-header-cell *matHeaderCellDef>Profesor</th>
+            <td mat-cell *matCellDef="let element">{{ element.curso.profesor }}</td>
+        </ng-container>
+
+        <!-- creado por -->
+        <ng-container matColumnDef="creado">
+            <th mat-header-cell *matHeaderCellDef>Creado por</th>
+            <td mat-cell *matCellDef="let element">{{ element.usuario.usuario }}</td>
+        </ng-container>
+
+        <!-- acciones -->
+        <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+            <td mat-cell *matCellDef="let element">
+
+            <div class="d-flex justify-content-center">
+                <!-- borrar -->
+                <button mat-icon-button (click)="eliminar(element)" *ngIf="sesion.usuarioActivo?.admin">
+                    <mat-icon class="colorIconoEliminar">delete</mat-icon>
+                </button>
+            </div>
+
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnas"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
+    </table>
+
+
+    <!-- ********* Paginacion ********* -->
+    <mat-paginator
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons>
+    </mat-paginator>
+</div>
+
+<div mat-dialog-actions class="d-flex justify-content-end">
+    <div>
+      <button mat-button (click)="cancelar()">Cancelar</button>
+    </div>
+  </div>

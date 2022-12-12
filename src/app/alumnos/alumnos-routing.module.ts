@@ -1,18 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AlumnosAgregarComponent } from './components/alumnos-agregar/alumnos-agregar.component';
-import { AlumnosComponent } from './components/alumnos/alumnos.component';
-import { AlumnosListaComponent } from './components/alumnos-lista/alumnos-lista.component';
-import { AlumnosEditarComponent } from './components/alumnos-editar/alumnos-editar.component';
-import { AlumnosDetalleComponent } from './components/alumnos-detalle/alumnos-detalle.component';
+import { InicioAlumnosComponent } from './components/inicio-alumnos/inicio-alumnos.component';
+
+import { EditarAlumnosComponent } from './components/editar-alumnos/editar-alumnos.component';
 import { AdminGuard } from '../core/guards/admin.guard';
+import { ListaAlumnosComponent } from './components/lista-alumnos/lista-alumnos.component';
 
 const routes: Routes = [
-  { path: '', component: AlumnosComponent, children: [
-    { path: 'agregar', component: AlumnosAgregarComponent, canActivate: [AdminGuard] },
-    { path: 'editar', component: AlumnosEditarComponent, canActivate: [AdminGuard] },
-    { path: 'lista', component: AlumnosListaComponent },
-    { path: ':id', component: AlumnosDetalleComponent }
+  { path: '', component: InicioAlumnosComponent, children: [
+    { path: 'editar', component: EditarAlumnosComponent, canActivate: [AdminGuard] },
+    { path: 'lista', component: ListaAlumnosComponent }
   ]},
 ];
 
